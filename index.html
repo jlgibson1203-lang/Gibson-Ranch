@@ -3,88 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibson Ranch</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
+    <title>Gibson Ranch | Provisions & Wares</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oatmeal: #f7f3ef;
+            --ink: #1a202c;
+            --terracotta: #c57b57;
+            --sage: #848c72;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--oatmeal);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        /* 1. THE TICKER */
+        .ticker {
+            background-color: var(--ink);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 2. HERO SECTION */
+        header {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin: 0;
+            color: var(--ink);
+        }
+        .subtitle {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--terracotta);
+            margin-top: 10px;
+        }
+
+        /* 3. SECTION STYLING */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            border-bottom: 1px solid #d1d5db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        /* 4. THE GRID */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+        .card {
+            background: var(--white);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .card:hover {
+            transform: translateY(-8px);
+        }
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background-color: #e2e8f0; /* Placeholder color */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-style: italic;
+        }
+        .card-content {
+            padding: 25px;
+        }
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+        }
+        .price {
+            font-weight: 600;
+            color: var(--terracotta);
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: block;
+            text-align: center;
+            background-color: var(--ink);
+            color: var(--white);
+            padding: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: 2px;
+            transition: opacity 0.2s;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* 5. STORY BREAK */
+        .story-break {
+            background-color: var(--sage);
+            color: var(--white);
+            padding: 100px 20px;
+            text-align: center;
+            margin: 60px 0;
+        }
+        .story-break p {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
+
+    <div class="ticker">
+        Next Bake Day: Saturday | Fresh Dahlias & Zinnias available now
+    </div>
+
     <header>
-        <img src="logo.png" alt="Gibson Ranch Logo" id="logo">
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#subscriptions">Subscriptions</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+        <h1>Gibson Ranch</h1>
+        <div class="subtitle">Hand-Raised & Home-Baked in Lowell, Indiana</div>
     </header>
 
-    <section id="home">
-        <h1>Welcome to Gibson Ranch</h1>
-        <p>Discover the joy of handmade, fresh, and sustainable living.</p>
-        <button onclick="scrollToSection('products')">Explore Products</button>
-    </section>
-
-    <section id="products">
-        <h2>Our Products</h2>
-        <div class="product">
-            <img src="pottery.jpg" alt="Pottery">
-            <h3>Pottery</h3>
-            <p>Eco-friendly and beautifully crafted by our skilled artisans.</p>
-        </div>
-        <div class="product">
-            <img src="sourdough.jpg" alt="Sourdough">
-            <h3>Sourdough Bread</h3>
-            <p>Freshly baked sourdough bread in various flavors.</p>
-        </div>
-        <div class="product">
-            <img src="flowers.jpg" alt="Flowers">
-            <h3>Flowers</h3>
-            <p>Stunning arrangements of locally sourced flowers.</p>
-        </div>
-    </section>
-
-    <section id="subscriptions">
-        <h2>Subscriptions</h2>
-        <div class="subscription">
-            <img src="crafty-cakes.png" alt="Crafty Cakes Subscription">
-            <h3>Crafty Cakes Subscription</h3>
-            <p>Bi-weekly deliveries of unique pottery pieces.</p>
-        </div>
-        <div class="subscription">
-            <img src="sourdough-delight.png" alt="Sourdough Delight Subscription">
-            <h3>Sourdough Delight Subscription</h3>
-            <p>Weekly deliveries of freshly baked sourdough bread.</p>
-        </div>
-        <div class="subscription">
-            <img src="floral-fiesta.png" alt="Floral Fiesta Subscription">
-            <h3>Floral Fiesta Subscription</h3>
-            <p>Bi-weekly arrangements of fresh cut flowers.</p>
-        </div>
-    </section>
-
-    <section id="about">
-        <h2>About Us</h2>
-        <p>We are a small, family-owned business passionate about craftsmanship, deliciousness, and sustainability.</p>
-    </section>
-
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <form action="#" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="4" required></textarea><br><br>
-            <button type="submit">Send</button>
-        </form>
-    </section>
-
-    <footer>
-        <p>&copy; 2023 Gibson Ranch. All rights reserved.</p>
-    </footer>
-</body>
-</html>
+    <div class="container">
+        
+        <h2 class="section-title">The Bread Barn</h2>
+        <div class="shop-grid">
+            <div class="card">
+                <div class="card-image">Image: Artisan Sourdough</div>
+                <div class="card-content">
+                    <h3>Artisan Sourdough Loaf</h3>
+                    <p>Slow-fermented for

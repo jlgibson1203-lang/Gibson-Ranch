@@ -4,8 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gibson Ranch</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fcfbf9; /* Clean, warm cream background */
+            color: #2d3748;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        h1 {
+            color: #4a5568; 
+            font-size: 2.8em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #718096;
+            font-size: 1.2em;
+            margin-bottom: 50px;
+        }
+        .shop-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            width: 260px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid #edf2f7;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Fun little hover effect */
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #2d3748;
+            font-size: 1.4em;
+        }
+        .price {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #38a169; /* Fresh natural green */
+            margin: 15px 0;
+        }
+        .buy-button {
+            background-color: #ed8936; /* Warm, welcoming orange */
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 99px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            width: 80%;
+            transition: background-color 0.2s;
+        }
+        .buy-button:hover {
+            background-color: #dd6b20;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to Gibson Ranch!</h1>
+
+    <h1>Welcome to Gibson Ranch 🦆</h1>
+    <p class="subtitle">Fresh goods, happy animals, and rustic baking.</p>
+
+    <div class="shop-grid">
+        <div class="card">
+            <h3>The Bread Barn Sourdough</h3>
+            <p>Freshly baked artisan loaves, tortillas, and cinnamon rolls.</p>
+            <div class="price">$10.00</div>
+            <a href="#" class="buy-button">Order Loaf</a>
+        </div>
+        
+        <div class="card">
+            <h3>Farm Fresh Subscription</h3>
+            <p>A weekly box of fresh eggs and seasonal ranch produce.</p>
+            <div class="price">$25 / week</div>
+            <a href="#" class="buy-button">Subscribe</a>
+        </div>
+    </div>
+
 </body>
 </html>

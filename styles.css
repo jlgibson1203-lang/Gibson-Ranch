@@ -1,97 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --heritage-blue: #5b7a95;
+  --cream: #f5f0e6;
+  --wheat: #e8dab2;
+  --sage: #849483;
+  --brick-red: #a64d4d;
+  --ink: #2c2c2c;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+  background-color: var(--cream);
+  color: var(--ink);
+  font-family: 'Inter Tight', sans-serif;
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10'><circle cx='5' cy='5' r='3' fill='%232c2c2c'/></svg>"), auto;
 }
 
-header {
-    background-color: #4CAF50;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
+/* Paper Grain Texture Overlay */
+.paper-grain::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0.04;
+  z-index: 9999;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
-#logo {
-    height: 50px;
+h1, h2, h3 {
+  font-family: 'Recoleta', 'Caslon', serif;
+  font-weight: 500;
 }
 
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+.script {
+  font-family: 'Caveat', cursive;
+  color: var(--heritage-blue);
 }
 
-nav ul li {
-    display: inline-block;
-    margin-left: 20px;
-}
-
-nav ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.2em;
-}
-
-#home {
-    background-color: #f4f4f4;
-    text-align: center;
-    padding: 50px;
-}
-
-#products, #subscriptions, #about, #contact {
-    padding: 30px;
-}
-
-.product, .subscription {
-    display: inline-block;
-    margin: 20px;
-    text-align: center;
-}
-
-.product img, .subscription img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-    margin: auto;
-}
-
-form label {
-    margin-top: 1em;
-    font-size: 1.1em;
-}
-
-form input, form textarea {
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-form button {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1em;
-}
-
-form button:hover {
-    background-color: #45a049;
-}
-
-footer {
-    text-align: center;
-    padding: 1em;
-    background-color: #333;
-    color: white;
+.ribbon-divider {
+  height: 20px;
+  background-image: url('/assets/illustrations/ribbon-divider.svg');
+  background-repeat: repeat-x;
+  border: none;
 }

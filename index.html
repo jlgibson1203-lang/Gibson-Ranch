@@ -57,11 +57,13 @@ section{padding:100px 48px}
 .hero-logo{width:220px;height:auto;margin-bottom:24px;animation:fadeUp .8s ease both;filter:drop-shadow(0 4px 12px rgba(0,0,0,.08))}
 .eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--earth);margin-bottom:8px;animation:fadeUp .8s .1s ease both}
 .hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.5vw,24px);font-style:italic;font-weight:300;opacity:.7;margin-bottom:28px;animation:fadeUp .8s .2s ease both}
-.hero-pillars{display:flex;gap:40px;justify-content:center;margin-bottom:44px;animation:fadeUp .8s .3s ease both}
-.pillar{display:flex;flex-direction:column;align-items:center;gap:5px}
-.pillar-icon{font-size:26px}
-.pillar-name{font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:500;letter-spacing:1px}
-.pillar-line{width:1px;height:22px;background:rgba(90,139,170,.25)}
+.hero-pillars{display:flex;gap:48px;justify-content:center;margin-bottom:44px;animation:fadeUp .8s .3s ease both}
+.pillar{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;color:var(--charcoal);cursor:pointer;transition:transform .2s}
+.pillar:hover{transform:translateY(-4px)}
+.pillar-icon{font-size:48px;width:80px;height:80px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.5);border-radius:50%;border:1.5px solid rgba(90,139,170,.2);transition:all .2s}
+.pillar:hover .pillar-icon{background:rgba(90,139,170,.12);border-color:var(--blue-mid)}
+.pillar-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;letter-spacing:1px}
+.pillar-line{width:1px;height:28px;background:rgba(90,139,170,.2)}
 .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .4s ease both}
 .scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.3}
 .scroll-hint span{font-size:8px;letter-spacing:3px;text-transform:uppercase}
@@ -206,11 +208,11 @@ footer{background:#1a1a1a;color:rgba(255,255,255,.4);padding:24px 48px;display:f
     <p class="eyebrow">A Family Homestead &mdash; Lowell, Indiana</p>
     <p class="hero-sub">Flowers, bread &amp; pottery — grown, baked &amp; crafted by hand.</p>
     <div class="hero-pillars">
-      <div class="pillar"><span class="pillar-icon">🌸</span><span class="pillar-name">Flowers</span></div>
+      <a href="https://gibson-ranch.myshopify.com/collections/flowers" target="_blank" class="pillar"><span class="pillar-icon">🌸</span><span class="pillar-name">Flowers</span></a>
       <div class="pillar-line"></div>
-      <div class="pillar"><span class="pillar-icon">🍞</span><span class="pillar-name">Sourdough</span></div>
+      <a href="https://gibson-ranch.myshopify.com/collections/sourdough" target="_blank" class="pillar"><span class="pillar-icon">🍞</span><span class="pillar-name">Sourdough</span></a>
       <div class="pillar-line"></div>
-      <div class="pillar"><span class="pillar-icon">🏺</span><span class="pillar-name">Pottery</span></div>
+      <a href="https://gibson-ranch.myshopify.com/collections/pottery" target="_blank" class="pillar"><span class="pillar-icon">🏺</span><span class="pillar-name">Pottery</span></a>
     </div>
     <div class="hero-btns">
       <a href="#shop" class="btn-primary">Explore the Ranch</a>

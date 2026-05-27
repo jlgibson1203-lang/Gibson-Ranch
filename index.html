@@ -1,1 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Gibson Ranch — Flowers, Sourdough & Pottery | Lowell, Indiana</title>
+<meta name="description" content="Gibson Ranch is a family homestead in Lowell, Indiana. Seasonal cut flowers, artisan sourdough bread, and handmade pottery by Birch Tree Designs."/>
+<meta property="og:title" content="Gibson Ranch — A Family Homestead"/>
+<meta property="og:description" content="Flowers, sourdough & pottery — grown, baked & crafted by hand in Lowell, Indiana."/>
+<meta property="og:type" content="website"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Raleway:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#FBF5EC;--blue:#5A8BAA;--blue-light:#A8C4D8;--blue-mid:#7BA3BF;
+  --earth:#C4956A;--earth-light:#D4A882;--charcoal:#2C2C2C;--warm-white:#FEFAF4;
+  --sage:#8FAF8F;--bread:#D4A054;--clay:#B5704F;--clay-light:#D49A7A;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Jost',sans-serif;background:var(--cream);color:var(--charcoal);overflow-x:hidden}
 
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:999;padding:12px 48px;display:flex;justify-content:space-between;align-items:center;background:rgba(251,245,236,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(90,139,170,0.1);transition:all .3s}
+nav.scrolled{padding:8px 48px;box-shadow:0 2px 20px rgba(0,0,0,.06)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{height:44px;width:auto;transition:height .3s;mix-blend-mode:multiply}
+nav.scrolled .nav-logo img{height:36px}
+.nav-logo span{font-family:'Raleway',sans-serif;font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--blue);font-weight:400}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--charcoal);text-decoration:none;transition:color .2s;font-weight:400}
+.nav-links a:hover,.nav-links a.active{color:var(--blue)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.btn-sm{background:var(--blue);color:#fff;padding:9px 20px;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:all .2s}
+.btn-sm:hover{opacity:.88}
+.mobile-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;z-index:1001}
+.mobile-toggle span{display:block;width:24px;height:2px;background:var(--charcoal);margin:5px 0;transition:all .3s}
+.mobile-toggle.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.mobile-toggle.open span:nth-child(2){opacity:0}
+.mobile-toggle.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(251,245,236,0.98);z-index:998;flex-direction:column;align-items:center;justify-content:center;gap:32px}
+.mobile-overlay.open{display:flex}
+.mobile-overlay a{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--charcoal);text-decoration:none;transition:color .2s}
+.mobile-overlay a:hover{color:var(--blue)}
+
+/* CART ICON */
+.cart-btn{position:relative;background:none;border:none;cursor:pointer;padding:8px 6px;color:var(--charcoal);display:flex;align-items:center;transition:color .2s}
+.cart-btn:hover{color:var(--blue)}
+.cart-btn svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cart-count{position:absolute;top:2px;right:0px;background:var(--earth);color:#fff;font-size:9px;font-weight:600;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;letter-spacing:0;line-height:1}
+
+/* CART DRAWER */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:1500;opacity:0;pointer-events:none;transition:opacity .3s}
+.cart-overlay.open{opacity:1;pointer-events:auto}
+.cart-drawer{position:fixed;top:0;right:0;width:min(420px,100vw);height:100%;background:#fff;z-index:1501;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,.12)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid rgba(0,0,0,.08)}
+.cart-header h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--charcoal)}
+.cart-close{background:none;border:none;cursor:pointer;font-size:24px;color:#bbb;padding:2px 6px;line-height:1;transition:color .2s}
+.cart-close:hover{color:var(--charcoal)}
+.cart-body{flex:1;overflow-y:auto;padding:20px 24px}
+.cart-empty{text-align:center;padding:60px 20px}
+.cart-empty-icon{font-size:40px;margin-bottom:16px;opacity:.3}
+.cart-empty p{font-size:14px;color:#999;margin-bottom:24px;line-height:1.6}
+.cart-item{display:flex;gap:14px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(0,0,0,.06)}
+.cart-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.cart-item-img{width:72px;height:72px;border-radius:3px;object-fit:cover;flex-shrink:0;background:#f5f5f5}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-name{font-size:14px;font-weight:500;margin-bottom:3px;line-height:1.3}
+.cart-item-price{font-size:13px;color:var(--earth);margin-bottom:10px}
+.cart-item-row{display:flex;align-items:center;justify-content:space-between}
+.cart-qty{display:flex;align-items:center;gap:8px}
+.qty-btn{width:26px;height:26px;border:1px solid rgba(0,0,0,.15);background:none;border-radius:2px;cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:all .15s;color:var(--charcoal);line-height:1}
+.qty-btn:hover{border-color:var(--blue);color:var(--blue)}
+.qty-val{font-size:13px;min-width:22px;text-align:center;font-weight:500}
+.cart-remove{background:none;border:none;cursor:pointer;color:#ccc;font-size:18px;padding:2px;line-height:1;transition:color .2s}
+.cart-remove:hover{color:#e05555}
+.cart-footer{padding:18px 24px;border-top:1px solid rgba(0,0,0,.08);background:#fafafa}
+.cart-subtotal-row{display:flex;justify-content:space-between;align-items:center;font-size:15px;margin-bottom:14px}
+.cart-subtotal-row span:last-child{font-weight:600;font-size:17px}
+.btn-checkout{display:block;width:100%;padding:14px;background:var(--charcoal);color:#fff;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;text-align:center;text-decoration:none;transition:background .2s}
+.btn-checkout:hover{background:var(--blue)}
+.cart-note{font-size:11px;color:#bbb;text-align:center;margin-top:10px;line-height:1.5}
+.cart-demo-note{background:#FFF8F0;border:1px solid rgba(196,149,106,.2);border-radius:3px;padding:10px 14px;margin-top:12px;font-size:11px;color:var(--earth);line-height:1.5;text-align:center}
+
+/* PRODUCT MODAL */
+.prod-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:1600;opacity:0;pointer-events:none;transition:opacity .3s;display:flex;align-items:center;justify-content:center;padding:24px}
+.prod-modal-overlay.open{opacity:1;pointer-events:auto}
+.prod-modal{background:#fff;border-radius:4px;max-width:840px;width:100%;max-height:90vh;overflow:hidden;display:flex;flex-direction:row;box-shadow:0 24px 80px rgba(0,0,0,.25);transform:scale(.95) translateY(12px);transition:transform .3s cubic-bezier(.4,0,.2,1);position:relative}
+.prod-modal-overlay.open .prod-modal{transform:scale(1) translateY(0)}
+.prod-modal-img-side{width:44%;flex-shrink:0;background:#f5f0e8;cursor:default}
+.prod-modal-img-side img{width:100%;height:100%;object-fit:cover;display:block}
+.prod-modal-info{flex:1;padding:44px 40px 36px;overflow-y:auto;display:flex;flex-direction:column}
+.prod-modal-close{position:absolute;top:12px;right:14px;background:rgba(255,255,255,.9);border:none;font-size:22px;color:#888;cursor:pointer;line-height:1;padding:4px 9px;border-radius:50%;transition:all .2s;z-index:10;width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+.prod-modal-close:hover{background:#fff;color:var(--charcoal);box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.prod-modal-cat{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--blue);margin-bottom:14px;font-family:'Jost',sans-serif}
+.prod-modal-title{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,3vw,38px);font-weight:300;line-height:1.15;color:var(--charcoal);margin-bottom:10px}
+.prod-modal-price{font-size:22px;color:var(--earth);font-weight:600;font-family:'Jost',sans-serif;margin-bottom:24px}
+.prod-modal-divider{width:40px;height:1.5px;background:var(--blue);margin-bottom:22px;opacity:.4}
+.prod-modal-desc{font-size:14px;line-height:1.8;color:#666;flex:1;margin-bottom:30px}
+.prod-modal-desc p{margin:0 0 10px}
+.prod-modal-btn{width:100%;padding:15px;background:var(--charcoal);color:#fff;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:background .25s;text-align:center}
+.prod-modal-btn:hover:not(:disabled){background:var(--blue)}
+.prod-modal-btn:disabled{background:#ccc;cursor:default}
+.prod-modal-btn.added{background:var(--earth)}
+@media(max-width:680px){
+  .prod-modal-overlay{padding:0;align-items:flex-end}
+  .prod-modal{flex-direction:column;border-radius:16px 16px 0 0;max-height:92vh;width:100%;max-width:100%}
+  .prod-modal-img-side{width:100%;height:240px;flex-shrink:0}
+  .prod-modal-info{padding:26px 22px 28px}
+  .prod-modal-title{font-size:26px}
+}
+
+/* BUTTONS */
+.btn-primary{background:var(--blue);color:#fff;padding:14px 32px;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.btn-outline{background:transparent;color:var(--blue);padding:13px 31px;border:1.5px solid var(--blue-mid);border-radius:2px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s}
+.btn-outline:hover{background:var(--blue);color:#fff}
+.btn-earth{background:var(--earth);color:#fff;padding:14px 32px;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s}
+.btn-earth:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.btn-clay{background:var(--clay);color:#fff;padding:14px 32px;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;transition:all .2s}
+.btn-clay:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.btn-white{background:#fff;color:var(--blue);padding:15px 40px;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;text-decoration:none;display:inline-block;font-weight:500;transition:all .2s}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.12)}
+
+/* COMMON */
+section{padding:100px 48px}
+.label{font-size:10px;letter-spacing:4px;text-transform:uppercase;margin-bottom:14px}
+.title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.5vw,54px);font-weight:300;line-height:1.1}
+.divider{width:56px;height:1.5px;margin:22px 0}
+.center{text-align:center}
+.container{max-width:1100px;margin:0 auto}
+
+/* SCROLL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity .7s ease,transform .7s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.95);transition:opacity .6s ease,transform .6s ease}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+
+/* HERO */
+#hero{min-height:auto;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:88px 48px 40px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('images/hero-flowers.jpg') center/cover no-repeat;z-index:0}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(251,245,236,.85) 0%,rgba(251,245,236,.72) 40%,rgba(228,238,245,.78) 70%,rgba(251,245,236,.88) 100%)}
+.hero-content{position:relative;z-index:2;max-width:720px}
+.hero-logo{width:340px;height:auto;margin-bottom:12px;animation:fadeUp .8s ease both;filter:drop-shadow(0 4px 12px rgba(0,0,0,.08))}
+.eyebrow{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--earth);margin-bottom:4px;animation:fadeUp .8s .1s ease both}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.5vw,24px);font-style:italic;font-weight:300;opacity:.7;margin-bottom:18px;animation:fadeUp .8s .2s ease both}
+.hero-pillars{display:flex;gap:48px;justify-content:center;margin-bottom:24px;animation:fadeUp .8s .3s ease both}
+.pillar{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;color:var(--charcoal);cursor:pointer;transition:transform .2s}
+.pillar:hover{transform:translateY(-4px)}
+.pillar-icon{width:90px;height:90px;border-radius:50%;overflow:hidden;border:2.5px solid rgba(90,139,170,.25);transition:all .2s;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.pillar-icon img{width:100%;height:100%;object-fit:cover}
+.pillar:hover .pillar-icon{border-color:var(--blue);box-shadow:0 6px 24px rgba(0,0,0,.14)}
+.pillar-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;letter-spacing:1px}
+.pillar-line{width:1px;height:28px;background:rgba(90,139,170,.2);align-self:center}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp .8s .4s ease both}
+
+/* SHOP SECTION */
+#shop{background:var(--warm-white);text-align:center;padding:80px 48px}
+.shop-tabs{display:flex;gap:8px;justify-content:center;margin:28px 0 40px;flex-wrap:wrap}
+.shop-tab{background:none;border:1.5px solid rgba(90,139,170,.2);border-radius:2px;padding:9px 24px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;color:#888;transition:all .2s}
+.shop-tab:hover{border-color:var(--blue);color:var(--blue)}
+.shop-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto}
+
+/* PRODUCT CARD */
+.product-card{background:#fff;border-radius:4px;overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:pointer;text-align:left}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.09)}
+.product-img-wrap{overflow:hidden;position:relative;height:240px}
+.product-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.product-card:hover .product-img{transform:scale(1.04)}
+.product-badge-cat{position:absolute;top:12px;left:12px;color:#fff;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:20px;font-weight:500}
+.badge-flowers{background:rgba(139,175,143,.85)}
+.badge-sourdough{background:rgba(212,160,84,.85)}
+.badge-pottery{background:rgba(181,112,79,.85)}
+.product-sold-out{position:absolute;inset:0;background:rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center}
+.product-sold-out span{background:rgba(44,44,44,.75);color:#fff;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:2px}
+.product-info{padding:20px 22px}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:400;margin-bottom:4px;line-height:1.25;color:var(--charcoal)}
+.product-price{font-size:14px;color:var(--earth);font-weight:500;margin-bottom:16px;letter-spacing:.5px}
+.btn-add-cart{width:100%;padding:11px;background:var(--charcoal);color:#fff;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn-add-cart:hover:not(:disabled){background:var(--blue);transform:none}
+.btn-add-cart:disabled{background:#ccc;cursor:not-allowed}
+.btn-add-cart.added{background:var(--sage)}
+.btn-subscribe{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:2px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;transition:background .2s;display:block;text-align:center;text-decoration:none}
+.btn-subscribe:hover{background:var(--charcoal)}
+
+/* SKELETON LOADING */
+.skeleton-card{background:#fff;border-radius:4px;overflow:hidden}
+.skeleton-img{width:100%;height:240px;background:linear-gradient(90deg,#eeebe6 25%,#f5f2ed 50%,#eeebe6 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+.skeleton-body{padding:20px 22px}
+.skeleton-line{height:13px;border-radius:2px;background:linear-gradient(90deg,#eeebe6 25%,#f5f2ed 50%,#eeebe6 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;margin-bottom:10px;width:70%}
+.skeleton-line.w-40{width:40%}
+.skeleton-line.btn-h{height:38px;width:100%;margin-top:6px;border-radius:2px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ABOUT */
+#about{background:var(--warm-white)}
+.about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.about-img{height:480px;border-radius:4px;overflow:hidden}
+.about-img img{width:100%;height:100%;object-fit:cover}
+.about-text p{font-size:15px;line-height:1.9;color:#5a5a5a;margin-bottom:16px}
+.about-values{display:flex;gap:28px;margin:32px 0}
+.about-value{text-align:center;flex:1}
+.about-value-icon{font-size:28px;margin-bottom:8px}
+.about-value-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:500;margin-bottom:4px}
+.about-value-desc{font-size:12px;color:#888;line-height:1.5}
+
+/* PHOTO BANNER */
+.photo-banner{width:100%;height:300px;overflow:hidden}
+.photo-banner img{width:100%;height:100%;object-fit:cover}
+
+/* FLOWERS — photo gallery */
+#flowers{background:var(--cream)}
+.flowers-gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:190px 190px;gap:6px;max-width:860px;margin:0 auto}
+.flowers-gallery a{overflow:hidden;border-radius:3px;display:block}
+.flowers-gallery img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.flowers-gallery a:hover img{transform:scale(1.04)}
+.flowers-gallery a:first-child{grid-row:1/3}
+
+/* FLOWER SUBSCRIPTIONS */
+#subscriptions{background:linear-gradient(135deg,#4A7A99 0%,var(--blue-mid) 100%);color:#fff;text-align:center}
+.sub-cards{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin:44px 0}
+.sub-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:3px;padding:28px 24px;min-width:175px;text-align:center;backdrop-filter:blur(6px);transition:all .25s}
+.sub-card:hover{background:rgba(255,255,255,.18);transform:translateY(-3px)}
+.sub-card h3{font-family:'Cormorant Garamond',serif;font-size:19px;margin-bottom:6px}
+.sub-card .price{font-family:'Satisfy',cursive;font-size:23px;margin-bottom:6px;opacity:.9}
+.sub-card .desc{font-size:11px;opacity:.55;line-height:1.5}
+
+/* SOURDOUGH */
+#sourdough{background:#F5EDE0}
+.sd-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.sd-visual{height:420px;border-radius:4px;overflow:hidden;position:relative}
+.sd-visual img{width:100%;height:100%;object-fit:cover}
+.sd-badge{position:absolute;top:20px;right:20px;background:rgba(255,255,255,.9);color:var(--earth);padding:6px 14px;border-radius:20px;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:500;z-index:2}
+.sd-text p{font-size:15px;line-height:1.9;color:#5a5a5a;margin-bottom:16px}
+
+/* POTTERY */
+#pottery{background:var(--charcoal);color:#fff}
+.pot-inner{max-width:1100px;margin:0 auto;text-align:center}
+.pot-logo{margin:0 auto 28px;max-width:280px}
+.pot-logo img{width:100%;height:auto}
+.pot-sub{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;font-weight:300;opacity:.55;max-width:480px;margin:0 auto 44px;line-height:1.6}
+.pot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.pot-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:3px;overflow:hidden;transition:all .25s}
+.pot-card:hover{background:rgba(255,255,255,.09);transform:translateY(-3px)}
+.pot-card-img{width:100%;height:220px;object-fit:cover}
+.pot-card-body{padding:24px}
+.pot-card h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:400;margin-bottom:8px}
+.pot-card p{font-size:13px;opacity:.5;line-height:1.7}
+
+/* TAGLINE BANNER */
+.tagline-banner{background:var(--cream);text-align:center;padding:60px 48px}
+.tagline-banner blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.5vw,38px);font-style:italic;font-weight:300;color:var(--charcoal);max-width:700px;margin:0 auto;line-height:1.4;opacity:.7}
+.tagline-banner .attr{font-family:'Jost',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--earth);margin-top:16px}
+
+/* NEWSLETTER */
+#newsletter{background:linear-gradient(135deg,#E8E0D4 0%,var(--cream) 50%,#E4EEF5 100%);text-align:center;padding:80px 48px}
+.newsletter-inner{max-width:520px;margin:0 auto}
+.newsletter-form{display:flex;gap:8px;margin-top:28px}
+.newsletter-form input{flex:1;padding:14px 18px;border:1.5px solid rgba(90,139,170,.25);border-radius:2px;font-family:'Jost',sans-serif;font-size:14px;background:rgba(255,255,255,.7);color:var(--charcoal);outline:none;transition:border .2s}
+.newsletter-form input:focus{border-color:var(--blue-mid)}
+.newsletter-form input::placeholder{color:#aaa}
+.newsletter-form button{white-space:nowrap}
+.newsletter-note{font-size:11px;color:#999;margin-top:12px}
+
+/* INSTAGRAM */
+#instagram{background:var(--cream);text-align:center;padding:80px 48px}
+.insta-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;max-width:820px;margin:0 auto 36px}
+.insta-tile{aspect-ratio:1;border-radius:2px;overflow:hidden;transition:opacity .2s,transform .2s;cursor:pointer}
+.insta-tile:hover{opacity:.85;transform:scale(.97)}
+.insta-tile img{width:100%;height:100%;object-fit:cover}
+
+/* LOCATION */
+#location{background:var(--warm-white);padding:80px 48px}
+.location-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.location-details{margin-top:24px}
+.location-detail{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:14px;color:#666}
+.location-detail span:first-child{font-size:18px}
+.map-container{border-radius:4px;overflow:hidden;height:380px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+.map-container iframe{width:100%;height:100%;border:0}
+
+/* CONTACT */
+#contact{background:var(--charcoal);color:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;max-width:1000px;margin:0 auto;align-items:center}
+.contact-title{font-family:'Satisfy',cursive;font-size:clamp(32px,5vw,52px);margin-bottom:14px}
+.contact-body{font-size:15px;line-height:1.85;opacity:.5;margin-bottom:28px}
+.contact-item{display:flex;align-items:center;gap:12px;margin-bottom:12px;opacity:.65;font-size:14px}
+.contact-form input,.contact-form textarea{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:2px;padding:13px 16px;color:#fff;font-family:'Jost',sans-serif;font-size:14px;width:100%;outline:none;transition:border .2s;margin-bottom:10px}
+.contact-form input::placeholder,.contact-form textarea::placeholder{color:rgba(255,255,255,.25)}
+.contact-form input:focus,.contact-form textarea:focus{border-color:rgba(168,196,216,.4)}
+.contact-form textarea{resize:vertical}
+
+/* FOOTER */
+footer{background:#1a1a1a;color:rgba(255,255,255,.4);padding:40px 48px 28px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;max-width:1100px;margin:0 auto 32px}
+.footer-brand{display:flex;flex-direction:column;gap:12px}
+.footer-brand-logo{display:flex;align-items:center;gap:8px}
+.footer-brand-logo img{height:36px;width:auto;opacity:.5}
+.footer-brand-logo span{font-family:'Satisfy',cursive;font-size:20px;color:var(--blue-light);opacity:.7}
+.footer-brand p{font-size:12px;line-height:1.7;opacity:.5;max-width:280px}
+.footer-col h4{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:16px}
+.footer-col a{display:block;font-size:13px;color:rgba(255,255,255,.35);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.footer-col a:hover{color:rgba(255,255,255,.7)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:20px;display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto}
+.footer-copy{font-size:10px;letter-spacing:1px}
+.footer-copy a{color:var(--blue-light);text-decoration:none}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .flowers-gallery{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .flowers-gallery a:first-child{grid-row:auto}
+  .pot-grid{grid-template-columns:1fr 1fr}
+  .product-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:12px 20px}
+  .nav-links,.btn-sm{display:none}
+  .mobile-toggle{display:block}
+  section{padding:72px 24px}
+  #shop{padding:60px 20px}
+  .about-inner,.sd-inner,.contact-grid,.location-inner{grid-template-columns:1fr;gap:36px}
+  .flowers-gallery,.pot-grid{grid-template-columns:1fr}
+  .product-grid{grid-template-columns:1fr 1fr;gap:14px}
+  .product-img-wrap,.skeleton-img{height:190px}
+  .hero-pillars{gap:24px}
+  .pillar-icon{width:72px;height:72px}
+  .hero-logo{width:240px}
+  .insta-grid{grid-template-columns:repeat(3,1fr)}
+  footer{padding:32px 24px 20px}
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:8px;text-align:center}
+  .sub-cards{flex-direction:column;align-items:center}
+  #instagram,#newsletter{padding:60px 24px}
+  .newsletter-form{flex-direction:column}
+  .about-values{flex-direction:column;gap:20px}
+  .map-container{height:280px}
+  .photo-banner{height:200px}
+  .tagline-banner{padding:44px 24px}
+  .cart-drawer{width:100vw}
+}
+@media(max-width:480px){
+  .product-grid{grid-template-columns:1fr}
+  .shop-tabs{gap:6px}
+  .shop-tab{padding:8px 16px;font-size:9px}
+}
+</style>
+</head>
+<body>
+
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button class="cart-close" onclick="closeCart()" aria-label="Close cart">&#x2715;</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <p>Your cart is empty.<br/>Add something from the ranch!</p>
+      <button class="btn-outline" onclick="closeCart()" style="font-size:10px;padding:10px 22px">Browse the Shop</button>
+    </div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-subtotal-row">
+      <span>Subtotal</span>
+      <span id="cartSubtotal">$0.00</span>
+    </div>
+    <a href="#" class="btn-checkout" id="checkoutBtn" target="_blank">Checkout →</a>
+    <p class="cart-note">Taxes & shipping calculated at checkout</p>
+  </div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="prod-modal-overlay" id="prodModalOverlay" onclick="closeProdModal(event)">
+  <div class="prod-modal" id="prodModal">
+    <button class="prod-modal-close" onclick="closeProdModal()" aria-label="Close">&#x2715;</button>
+    <div class="prod-modal-img-side">
+      <img id="prodModalImg" src="" alt=""/>
+    </div>
+    <div class="prod-modal-info">
+      <div class="prod-modal-cat" id="prodModalCat"></div>
+      <div class="prod-modal-title" id="prodModalTitle"></div>
+      <div class="prod-modal-price" id="prodModalPrice"></div>
+      <div class="prod-modal-divider"></div>
+      <div class="prod-modal-desc" id="prodModalDesc"></div>
+      <button class="prod-modal-btn" id="prodModalBtn" onclick="handleProdModalCart()" style="display:none"></button>
+      <a class="prod-modal-btn" id="prodModalSubBtn" href="#" target="_blank" style="display:none;text-decoration:none">Subscribe Weekly &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
+    <img src="images/gibson-ranch-logo.png" alt="Gibson Ranch"/>
+    <span>Gibson Ranch</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#flowers">Flowers</a></li>
+    <li><a href="#sourdough">Sourdough</a></li>
+    <li><a href="#pottery">Pottery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" id="cartBtn" onclick="openCart()" aria-label="View cart">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span class="cart-count" id="cartCount" style="display:none">0</span>
+    </button>
+    <a href="https://gibson-ranch.myshopify.com/" target="_blank" class="btn-sm">Shop Now</a>
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-overlay" id="mobileMenu">
+  <a href="#shop" onclick="closeMenu()">Shop</a>
+  <a href="#flowers" onclick="closeMenu()">Flowers</a>
+  <a href="#sourdough" onclick="closeMenu()">Sourdough</a>
+  <a href="#pottery" onclick="closeMenu()">Pottery</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+  <a href="https://gibson-ranch.myshopify.com/" target="_blank" class="btn-primary" onclick="closeMenu()">Shop Now</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <img src="images/gibson-ranch-logo.png" alt="Gibson Ranch" class="hero-logo"/>
+    <div class="hero-btns">
+      <a href="#shop" class="btn-primary">Shop the Ranch</a>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="center reveal">
+    <p class="label" style="color:var(--earth)">From the Ranch</p>
+    <h2 class="title">Everything we <em>make</em></h2>
+    <div class="divider" style="background:var(--earth);margin:22px auto"></div>
+    <p style="font-size:14px;color:#999;margin-top:4px">Grown, baked, and crafted right here in Lowell, Indiana.</p>
+  </div>
+
+  <!-- Category Tabs -->
+  <div class="shop-tabs">
+    <button class="shop-tab active" data-cat="all" onclick="filterProducts('all')">All</button>
+    <button class="shop-tab" data-cat="flowers" onclick="filterProducts('flowers')">🌸 Flowers</button>
+    <button class="shop-tab" data-cat="sourdough" onclick="filterProducts('sourdough')">🍞 Sourdough</button>
+    <button class="shop-tab" data-cat="pottery" onclick="filterProducts('pottery')">🏺 Pottery</button>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="product-grid" id="productGrid">
+    <!-- Populated by JS -->
+  </div>
+
+  <div class="center reveal" style="margin-top:44px">
+    <a href="https://gibson-ranch.myshopify.com/" target="_blank" class="btn-outline">View Full Shop on Shopify →</a>
+  </div>
+</section>
+
+<!-- FLOWERS — photo gallery -->
+<section id="flowers">
+<div class="container">
+  <div class="center reveal" style="margin-bottom:44px">
+    <p class="label" style="color:var(--earth)">Cut Flower Farm</p>
+    <h2 class="title">Grown on <em>our homestead</em></h2>
+    <p style="font-size:15px;color:#888;margin-top:14px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.7">We're the Gibson family, and we grow seasonal cut flowers right here in Lowell, Indiana. Dahlias, zinnias, cosmos, ranunculus, and more — planted and tended with sustainable methods and no shortcuts. Available as bouquets and fresh-cut stem bunches.</p>
+  </div>
+  <div class="flowers-gallery">
+    <a href="https://gibson-ranch.myshopify.com/collections/flowers" target="_blank" class="reveal-scale"><img src="images/flowers-jars.jpg" alt="Bouquets in mason jars"/></a>
+    <a href="https://gibson-ranch.myshopify.com/collections/flowers" target="_blank" class="reveal-scale"><img src="images/flowers-hand.jpg" alt="Hand-picked bouquet"/></a>
+    <a href="https://gibson-ranch.myshopify.com/collections/flowers" target="_blank" class="reveal-scale"><img src="images/flowers-zinnias.jpg" alt="Pink zinnias"/></a>
+    <a href="https://gibson-ranch.myshopify.com/collections/flowers" target="_blank" class="reveal-scale"><img src="images/flowers-spread.jpg" alt="Dahlia and zinnia spread"/></a>
+    <a href="https://gibson-ranch.myshopify.com/collections/flowers" target="_blank" class="reveal-scale"><img src="images/flowers-garden.jpg" alt="Dahlia garden"/></a>
+  </div>
+  <div class="center reveal" style="margin-top:36px">
+    <a href="#shop" class="btn-primary" onclick="setTimeout(()=>filterProducts('flowers'),300)">Shop All Flowers</a>
+  </div>
+</div>
+</section>
+
+
+<!-- TAGLINE BANNER -->
+<!-- SOURDOUGH -->
+<section id="sourdough">
+<div class="sd-inner">
+  <div class="sd-visual reveal-left"><img src="images/sourdough-loaf.jpg" alt="Scored sourdough loaf"/><div class="sd-badge">From Our Kitchen</div></div>
+  <div class="sd-text reveal-right">
+    <p class="label" style="color:var(--bread)">Artisan Bread</p>
+    <h2 class="title">Slow-fermented<br/><em>sourdough</em></h2>
+    <div class="divider" style="background:var(--bread)"></div>
+    <p>Hand-shaped and slow-fermented with our own maintained starter. Every loaf is made the long way — because we believe the best things come from patience, care, and simple ingredients done right.</p>
+    <p>Available for local pickup at the ranch and at select Northwest Indiana farmers markets. Pre-orders open weekly.</p>
+    <br/>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+      <a href="#shop" class="btn-earth" onclick="setTimeout(()=>filterProducts('sourdough'),300)">Shop Sourdough</a>
+      <span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--earth);opacity:.65">or find us at the market</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PHOTO BANNER -->
+<div class="photo-banner reveal"><img src="images/dahlia-garden.jpg" alt="Dahlia garden at Gibson Ranch"/></div>
+
+<!-- POTTERY -->
+<section id="pottery">
+<div class="pot-inner">
+  <div class="pot-logo"><img src="images/birch-tree-designs-logo-white.png" alt="Birch Tree Designs"/></div>
+  <p class="pot-sub reveal">Handmade ceramic pieces shaped on the wheel, glazed by hand, and fired in our home studio kiln. Every piece leaves the ranch with care — no two are exactly alike.</p>
+  <div class="pot-grid">
+    <div class="pot-card reveal-scale"><img src="images/pottery-mugs-blue.jpg" alt="Handmade rainbow glaze mug" class="pot-card-img"/><div class="pot-card-body"><h3>Mugs &amp; Cups</h3><p>Perfectly imperfect — each one shaped by hand with unique glaze variations.</p></div></div>
+    <div class="pot-card reveal-scale"><img src="images/pottery-tree-cup.jpg" alt="Speckled pottery collection" class="pot-card-img"/><div class="pot-card-body"><h3>Vases &amp; Vessels</h3><p>Designed to hold Gibson Ranch blooms — or stand beautifully on their own.</p></div></div>
+    <div class="pot-card reveal-scale"><img src="images/pottery-bowl-blue.jpg" alt="Speckled dinnerware set" class="pot-card-img"/><div class="pot-card-body"><h3>Bowls &amp; Plates</h3><p>Functional art for your table. Microwave and dishwasher safe.</p></div></div>
+  </div>
+  <div class="reveal"><a href="#shop" class="btn-primary" onclick="setTimeout(()=>filterProducts('pottery'),300)">Shop Pottery →</a></div>
+</div>
+</section>
+
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <div class="newsletter-inner reveal">
+    <p class="label" style="color:var(--earth)">Stay in the Loop</p>
+    <h2 class="title">Join the <em>ranch list</em></h2>
+    <p style="font-size:15px;color:#777;margin-top:14px;line-height:1.7">Get updates on what's blooming, fresh sourdough drops, new pottery releases, and first access to subscriptions.</p>
+    <form class="newsletter-form" action="https://formsubmit.co/jlgibson1203@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Gibson Ranch Newsletter Signup"/>
+      <input type="hidden" name="_template" value="table"/>
+      <input type="hidden" name="_captcha" value="false"/>
+      <input type="hidden" name="_next" value="https://gibson-ranch.myshopify.com/pages/thank-you"/>
+      <input type="email" name="email" placeholder="Your email address" required/>
+      <button type="submit" class="btn-primary">Subscribe</button>
+    </form>
+    <p class="newsletter-note">No spam, ever. Just updates from the ranch.</p>
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section id="instagram">
+  <div class="reveal">
+    <p class="label" style="color:var(--earth)">Follow Along</p>
+    <h2 class="title" style="margin-bottom:8px"><em>@gibsonranchnwi</em></h2>
+    <p style="font-size:14px;color:#999;margin-bottom:36px">Life on the farm — what's blooming, baking, and coming out of the kiln.</p>
+  </div>
+  <div class="insta-grid">
+    <div class="insta-tile reveal-scale"><img src="images/insta-1.jpg" alt="Pink dahlia"/></div>
+    <div class="insta-tile reveal-scale"><img src="images/insta-2.jpg" alt="Yellow dahlia"/></div>
+    <div class="insta-tile reveal-scale"><img src="images/insta-3.jpg" alt="White dahlias"/></div>
+    <div class="insta-tile reveal-scale"><img src="images/insta-4.jpg" alt="Bouquet arranging"/></div>
+    <div class="insta-tile reveal-scale"><img src="images/insta-5.jpg" alt="Pink zinnias"/></div>
+  </div>
+  <div class="reveal"><a href="https://instagram.com/gibsonranchnwi" target="_blank" class="btn-outline">Follow on Instagram</a></div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+<div class="location-inner">
+  <div class="reveal-left">
+    <p class="label" style="color:var(--earth)">Visit the Ranch</p>
+    <h2 class="title">Find us in <em>Lowell</em></h2>
+    <div class="divider" style="background:var(--earth)"></div>
+    <p style="font-size:15px;line-height:1.85;color:#5a5a5a;margin-bottom:16px">Gibson Ranch is located in Lowell, Indiana — right in the heart of Northwest Indiana. Stop by for local pickup orders or find us at area farmers markets throughout the season.</p>
+    <div class="location-details">
+      <div class="location-detail"><span>📍</span><span>Lowell, Indiana 46356</span></div>
+      <div class="location-detail"><span>🕐</span><span>Pickup by appointment</span></div>
+      <div class="location-detail"><span>🌻</span><span>Farmers markets: May – October</span></div>
+      <div class="location-detail"><span>✉️</span><span>jlgibson1203@gmail.com</span></div>
+    </div>
+  </div>
+  <div class="map-container reveal-right">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23856.7!2d-87.4302!3d41.2917!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8811b3f82fdbae65%3A0x8e0a80e9e2b9f20f!2sLowell%2C%20IN%2046356!5e0!3m2!1sen!2sus!4v1" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<div class="contact-grid">
+  <div class="reveal-left">
+    <p class="label" style="color:var(--earth-light)">Say Hello</p>
+    <h2 class="contact-title">Let's Connect</h2>
+    <p class="contact-body">Questions about flowers, bread, pottery, weddings, wholesale, or the ranch — we'd love to hear from you.</p>
+    <div class="contact-item"><span>📍</span><span>Lowell, Indiana</span></div>
+    <div class="contact-item"><span>📸</span><span>@gibsonranchnwi</span></div>
+    <div class="contact-item"><span>✉️</span><span>jlgibson1203@gmail.com</span></div>
+  </div>
+  <div class="reveal-right">
+    <form class="contact-form" action="https://formsubmit.co/jlgibson1203@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Gibson Ranch Contact Form Message"/>
+      <input type="hidden" name="_template" value="table"/>
+      <input type="hidden" name="_captcha" value="false"/>
+      <input type="hidden" name="_next" value="https://gibson-ranch.myshopify.com/pages/thank-you"/>
+      <input type="text" name="name" placeholder="Your Name" required/>
+      <input type="email" name="email" placeholder="Email Address" required/>
+      <input type="text" name="subject" placeholder="What's this about? (flowers, bread, pottery, wedding...)"/>
+      <textarea name="message" rows="5" placeholder="Tell us what you're looking for..." required></textarea>
+      <button type="submit" class="btn-primary">Send Message</button>
+    </form>
+  </div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-logo"><img src="images/gibson-ranch-logo.png" alt="Gibson Ranch"/><span>Gibson Ranch</span></div>
+      <p>A family homestead in Lowell, Indiana. Flowers, sourdough, and pottery — grown, baked, and crafted by hand.</p>
+    </div>
+    <div class="footer-col"><h4>Explore</h4><a href="#flowers">Flowers</a><a href="#sourdough">Sourdough</a><a href="#pottery">Pottery</a></div>
+    <div class="footer-col"><h4>Shop</h4><a href="https://gibson-ranch.myshopify.com/collections/flowers" target="_blank">Shop Flowers</a><a href="https://gibson-ranch.myshopify.com/collections/sourdough" target="_blank">Shop Sourdough</a><a href="https://gibson-ranch.myshopify.com/collections/pottery" target="_blank">Shop Pottery</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="https://instagram.com/gibsonranchnwi" target="_blank">Instagram</a><a href="https://facebook.com/GibsonRanchNWI" target="_blank">Facebook</a><a href="#contact">Contact Us</a><a href="#location">Find the Ranch</a><a href="#newsletter">Newsletter</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">&copy; 2025 Gibson Ranch &middot; Lowell, Indiana</span>
+    <span class="footer-copy">Pottery by <a href="#pottery">Birch Tree Designs</a></span>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+//  SHOPIFY CONFIG
+//  Once you have your Storefront API token, paste it below.
+//  Your store domain is already filled in.
+// ============================================================
+const SHOPIFY_DOMAIN = 'gibson-ranch.myshopify.com';
+const SHOPIFY_TOKEN  = '0b5d75e31bb7e8a508e972d87550f171';
+
+// ============================================================
+//  DEMO PRODUCTS — shown when SHOPIFY_TOKEN is not set.
+//  Replace with real products once Shopify is connected.
+// ============================================================
+const DEMO_PRODUCTS = [
+  { id:'d1', title:'Summer Bouquet',       cat:'flowers',   price:'35.00', img:'images/flowers-jars.jpg',      variantId:null, available:true,  description:'<p>A generous mixed bouquet cut fresh from our fields, filled with seasonal blooms in warm summer tones. Each bouquet is one-of-a-kind — arranged by hand and ready to brighten any space.</p><p>Available for local pick-up or porch delivery in the Lowell area.</p>' },
+  { id:'d2', title:'Hand-Picked Stems',    cat:'flowers',   price:'20.00', img:'images/flowers-hand.jpg',      variantId:null, available:true,  description:'<p>A loose bundle of freshly cut stems, perfect for arranging at home. Choose from whatever is blooming — zinnias, dahlias, lisianthus, and more depending on the season.</p>' },
+  { id:'d3', title:'Zinnia Bunch',         cat:'flowers',   price:'18.00', img:'images/flowers-zinnias.jpg',   variantId:null, available:true,  description:'<p>A vibrant bunch of hand-grown zinnias in a mix of colors straight from the field. Zinnias are long-lasting and love a sunny spot — they make gorgeous, cheerful arrangements.</p>' },
+  { id:'d4', title:'Sourdough Loaf',       cat:'sourdough', price:'12.00', img:'images/sourdough-loaf.jpg',    variantId:null, available:true,  description:'<p>Our classic sourdough, made with a live starter and slow-fermented for a complex, tangy flavor and a crisp, crackly crust. Baked fresh in small batches.</p><p>Pre-orders open weekly — order by Thursday for weekend pick-up.</p>' },
+  { id:'d5', title:'Whole Wheat Loaf',     cat:'sourdough', price:'14.00', img:'images/shop-sourdough.jpg',    variantId:null, available:false, description:'<p>A heartier sourdough made with whole wheat flour for a nuttier flavor and denser crumb. Sold out for the current bake week — check back next week!</p>' },
+  { id:'d6', title:'Handmade Mug',         cat:'pottery',   price:'42.00', img:'images/pottery-mugs-blue.jpg', variantId:null, available:true,  description:'<p>Hand-thrown and glazed mugs made by Birch Tree Designs right here on the ranch. Each piece is one-of-a-kind — no two are exactly alike. Holds approximately 12 oz. Microwave and dishwasher safe.</p>' },
+  { id:'d7', title:'Tree Motif Cup',       cat:'pottery',   price:'38.00', img:'images/pottery-tree-cup.jpg',  variantId:null, available:true,  description:'<p>A hand-built cup featuring a delicate carved tree motif — the signature mark of Birch Tree Designs. Made from stoneware clay with a food-safe glaze. Holds approximately 8 oz.</p>' },
+  { id:'d8', title:'Handmade Bowl',        cat:'pottery',   price:'55.00', img:'images/pottery-bowl-blue.jpg', variantId:null, available:true,  description:'<p>A generous hand-thrown bowl with a smooth blue-toned glaze. Perfect for serving, cereal, or as a decorative piece. Each bowl is signed by the maker and kiln-fired on site.</p>' },
+];
+
+// ============================================================
+//  STATE
+// ============================================================
+let allProducts = [];
+let currentCat  = 'all';
+let cartId      = localStorage.getItem('gr_cart_id') || null;
+let cartData    = { items:[], subtotal:'0.00', checkoutUrl:'#' };
+const isDemoMode = !SHOPIFY_TOKEN;
+
+// ============================================================
+//  SHOPIFY STOREFRONT API HELPER
+// ============================================================
+async function sfetch(query, variables = {}) {
+  try {
+    const res = await fetch(`https://${SHOPIFY_DOMAIN}/api/2024-01/graphql.json`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Storefront-Access-Token': SHOPIFY_TOKEN
+      },
+      body: JSON.stringify({ query, variables })
+    });
+    return await res.json();
+  } catch(e) {
+    console.warn('Shopify fetch error:', e);
+    return null;
+  }
+}
+
+// ============================================================
+//  PRODUCT LOADING
+// ============================================================
+const PRODUCT_QUERY = `{
+  products(first: 50) {
+    edges {
+      node {
+        id title handle productType tags descriptionHtml
+        priceRange { minVariantPrice { amount currencyCode } }
+        images(first:1) { edges { node { url altText } } }
+        variants(first:1) {
+          edges { node { id availableForSale price { amount currencyCode } } }
+        }
+      }
+    }
+  }
+}`;
+
+function categorizProduct(p) {
+  const haystack = (p.title + ' ' + p.productType + ' ' + p.tags.join(' ')).toLowerCase();
+  if (/flower|floral|bouquet|bloom|dahlia|zinnia|stem/.test(haystack)) return 'flowers';
+  if (/sourdough|bread|loaf|bake|starter/.test(haystack))              return 'sourdough';
+  if (/potter|ceramic|mug|cup|bowl|vase|vessel|kiln/.test(haystack))   return 'pottery';
+  return 'other';
+}
+
+async function loadProducts() {
+  showSkeletons();
+  if (isDemoMode) {
+    allProducts = DEMO_PRODUCTS;
+    renderProducts();
+    return;
+  }
+  const data = await sfetch(PRODUCT_QUERY);
+  if (!data || !data.data) {
+    allProducts = DEMO_PRODUCTS;
+    renderProducts();
+    return;
+  }
+  allProducts = data.data.products.edges.map(({ node: p }) => ({
+    id:          p.id,
+    title:       p.title,
+    handle:      p.handle,
+    cat:         categorizProduct(p),
+    price:       parseFloat(p.priceRange.minVariantPrice.amount).toFixed(2),
+    img:         p.images.edges[0]?.node.url || 'images/shop-flowers.jpg',
+    variantId:   p.variants.edges[0]?.node.id || null,
+    available:   p.variants.edges[0]?.node.availableForSale ?? true,
+    description: p.descriptionHtml || '',
+  }));
+  renderProducts();
+}
+
+function showSkeletons() {
+  const grid = document.getElementById('productGrid');
+  grid.innerHTML = Array(6).fill(0).map(() => `
+    <div class="skeleton-card">
+      <div class="skeleton-img"></div>
+      <div class="skeleton-body">
+        <div class="skeleton-line"></div>
+        <div class="skeleton-line w-40"></div>
+        <div class="skeleton-line btn-h"></div>
+      </div>
+    </div>`).join('');
+}
+
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  const filtered = currentCat === 'all'
+    ? allProducts
+    : allProducts.filter(p => p.cat === currentCat);
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#999">
+      <p style="font-size:28px;margin-bottom:12px">🌿</p>
+      <p style="font-size:15px">Nothing in this category yet — check back soon!</p>
+    </div>`;
+    return;
+  }
+
+  const badgeClass = { flowers:'badge-flowers', sourdough:'badge-sourdough', pottery:'badge-pottery' };
+  const badgeLabel = { flowers:'Flowers', sourdough:'Sourdough', pottery:'Pottery' };
+
+  // Store for modal lookup
+  window._shopProducts = filtered;
+
+  const isSub = p => {
+    const h = (p.handle || '').toLowerCase();
+    const t = (p.title  || '').toLowerCase();
+    return h.includes('subscription') || t.includes('subscription');
+  };
+
+  grid.innerHTML = filtered.map((p, i) => {
+    const sub = isSub(p);
+    const btnHtml = sub
+      ? `<a class="btn-subscribe" href="https://gibson-ranch.myshopify.com/products/${p.handle}" target="_blank">Subscribe Weekly &rarr;</a>`
+      : `<button class="btn-add-cart"
+            onclick="handleAddToCart(this,'${p.id}','${p.title}','${p.price}','${p.img}','${p.variantId || ''}')"
+            ${p.available ? '' : 'disabled'}>
+            ${p.available ? 'Add to Cart' : 'Sold Out'}
+          </button>`;
+    return `
+    <div class="product-card reveal-scale">
+      <div class="product-img-wrap" style="cursor:pointer" onclick="openProductModal(window._shopProducts[${i}])">
+        <img class="product-img" src="${p.img}" alt="${p.title}" loading="lazy"/>
+        <span class="product-badge-cat ${badgeClass[p.cat] || ''}">${badgeLabel[p.cat] || p.cat}</span>
+        ${p.available ? '' : '<div class="product-sold-out"><span>Sold Out</span></div>'}
+      </div>
+      <div class="product-info">
+        <div class="product-name" style="cursor:pointer" onclick="openProductModal(window._shopProducts[${i}])">${p.title}</div>
+        <div class="product-price">$${p.price}</div>
+        ${btnHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Animate new cards in
+  requestAnimationFrame(() => {
+    document.querySelectorAll('#productGrid .reveal-scale').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 60);
+    });
+  });
+}
+
+function filterProducts(cat) {
+  currentCat = cat;
+  document.querySelectorAll('.shop-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.cat === cat);
+  });
+  renderProducts();
+}
+
+// ============================================================
+//  ADD TO CART
+// ============================================================
+async function handleAddToCart(btn, productId, title, price, img, variantId) {
+  if (!btn || btn.disabled) return;
+  const origText = btn.textContent;
+  btn.textContent = 'Adding…';
+  btn.disabled = true;
+
+  if (isDemoMode || !variantId) {
+    // Demo mode: local cart
+    addToLocalCart({ id: productId, title, price, img });
+  } else {
+    await addToShopifyCart(variantId, title, price, img);
+  }
+
+  btn.classList.add('added');
+  btn.textContent = '✓ Added';
+  setTimeout(() => {
+    btn.classList.remove('added');
+    btn.textContent = origText;
+    btn.disabled = false;
+  }, 1800);
+
+  openCart();
+}
+
+// --- LOCAL CART (demo mode) ---
+function addToLocalCart(product) {
+  const existing = cartData.items.find(i => i.id === product.id);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cartData.items.push({ ...product, qty: 1 });
+  }
+  recalcLocalSubtotal();
+  renderCartUI();
+}
+
+function updateLocalQty(id, delta) {
+  const item = cartData.items.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cartData.items = cartData.items.filter(i => i.id !== id);
+  recalcLocalSubtotal();
+  renderCartUI();
+}
+
+function removeLocalItem(id) {
+  cartData.items = cartData.items.filter(i => i.id !== id);
+  recalcLocalSubtotal();
+  renderCartUI();
+}
+
+function recalcLocalSubtotal() {
+  const total = cartData.items.reduce((sum, i) => sum + parseFloat(i.price) * i.qty, 0);
+  cartData.subtotal = total.toFixed(2);
+  cartData.checkoutUrl = 'https://gibson-ranch.myshopify.com/';
+}
+
+// --- SHOPIFY CART ---
+const CART_FRAGMENT = `
+  id checkoutUrl totalQuantity
+  cost { subtotalAmount { amount currencyCode } }
+  lines(first:50) {
+    edges { node {
+      id quantity
+      merchandise { ... on ProductVariant {
+        id
+        product { title }
+        price { amount }
+        image { url }
+      }}
+    }}
+  }`;
+
+async function addToShopifyCart(variantId, title, price, img) {
+  let data;
+  if (!cartId) {
+    data = await sfetch(`
+      mutation($variantId: ID!) {
+        cartCreate(input: { lines: [{ quantity:1, merchandiseId:$variantId }] }) {
+          cart { ${CART_FRAGMENT} }
+        }
+      }`, { variantId });
+    const cart = data?.data?.cartCreate?.cart;
+    if (cart) { cartId = cart.id; localStorage.setItem('gr_cart_id', cartId); syncCartData(cart); }
+  } else {
+    data = await sfetch(`
+      mutation($cartId: ID!, $variantId: ID!) {
+        cartLinesAdd(cartId:$cartId, lines:[{ quantity:1, merchandiseId:$variantId }]) {
+          cart { ${CART_FRAGMENT} }
+        }
+      }`, { cartId, variantId });
+    const cart = data?.data?.cartLinesAdd?.cart;
+    if (cart) syncCartData(cart); else { cartId = null; localStorage.removeItem('gr_cart_id'); await addToShopifyCart(variantId, title, price, img); }
+  }
+}
+
+async function updateShopifyQty(lineId, newQty) {
+  if (!cartId) return;
+  const data = await sfetch(`
+    mutation($cartId: ID!, $lineId: ID!, $qty: Int!) {
+      cartLinesUpdate(cartId:$cartId, lines:[{ id:$lineId, quantity:$qty }]) {
+        cart { ${CART_FRAGMENT} }
+      }
+    }`, { cartId, lineId, qty: newQty });
+  const cart = data?.data?.cartLinesUpdate?.cart;
+  if (cart) { syncCartData(cart); renderCartUI(); }
+}
+
+async function removeShopifyItem(lineId) {
+  if (!cartId) return;
+  const data = await sfetch(`
+    mutation($cartId: ID!, $lineIds: [ID!]!) {
+      cartLinesRemove(cartId:$cartId, lineIds:$lineIds) {
+        cart { ${CART_FRAGMENT} }
+      }
+    }`, { cartId, lineIds: [lineId] });
+  const cart = data?.data?.cartLinesRemove?.cart;
+  if (cart) { syncCartData(cart); renderCartUI(); }
+}
+
+function syncCartData(cart) {
+  cartData.items = cart.lines.edges.map(({ node: l }) => ({
+    lineId: l.id,
+    id:     l.merchandise.id,
+    title:  l.merchandise.product.title,
+    price:  parseFloat(l.merchandise.price.amount).toFixed(2),
+    img:    l.merchandise.image?.url || '',
+    qty:    l.quantity,
+  }));
+  cartData.subtotal    = parseFloat(cart.cost.subtotalAmount.amount).toFixed(2);
+  cartData.checkoutUrl = cart.checkoutUrl;
+  renderCartUI();
+}
+
+// ============================================================
+//  CART UI
+// ============================================================
+function renderCartUI() {
+  const body   = document.getElementById('cartBody');
+  const footer = document.getElementById('cartFooter');
+  const count  = document.getElementById('cartCount');
+  const total  = cartData.items.reduce((s, i) => s + i.qty, 0);
+
+  // Count badge
+  if (total > 0) { count.textContent = total > 9 ? '9+' : total; count.style.display = 'flex'; }
+  else { count.style.display = 'none'; }
+
+  if (cartData.items.length === 0) {
+    body.innerHTML = `<div class="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <p>Your cart is empty.<br/>Add something from the ranch!</p>
+      <button class="btn-outline" onclick="closeCart()" style="font-size:10px;padding:10px 22px">Browse the Shop</button>
+    </div>`;
+    footer.style.display = 'none';
+    return;
+  }
+
+  body.innerHTML = cartData.items.map(item => `
+    <div class="cart-item">
+      <img class="cart-item-img" src="${item.img}" alt="${item.title}" onerror="this.style.display='none'"/>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.title}</div>
+        <div class="cart-item-price">$${item.price}</div>
+        <div class="cart-item-row">
+          <div class="cart-qty">
+            <button class="qty-btn" onclick="${isDemoMode ? `updateLocalQty('${item.id}',-1)` : `updateShopifyQty('${item.lineId}',${item.qty-1})`}">−</button>
+            <span class="qty-val">${item.qty}</span>
+            <button class="qty-btn" onclick="${isDemoMode ? `updateLocalQty('${item.id}',1)` : `updateShopifyQty('${item.lineId}',${item.qty+1})`}">+</button>
+          </div>
+          <button class="cart-remove" onclick="${isDemoMode ? `removeLocalItem('${item.id}')` : `removeShopifyItem('${item.lineId}')`}" aria-label="Remove">&#x2715;</button>
+        </div>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('cartSubtotal').textContent = `$${cartData.subtotal}`;
+  document.getElementById('checkoutBtn').href = cartData.checkoutUrl;
+  footer.style.display = 'block';
+
+  if (isDemoMode) {
+    const existing = document.querySelector('.cart-demo-note');
+    if (!existing) {
+      footer.insertAdjacentHTML('beforeend', `<p class="cart-demo-note">
+        🔧 Demo mode — <a href="https://gibson-ranch.myshopify.com/" target="_blank" style="color:var(--earth);text-decoration:underline">visit Shopify</a> to complete your order, or add your Storefront API token to enable live checkout.
+      </p>`);
+    }
+  }
+}
+
+function openCart()  { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+
+// ============================================================
+//  PRODUCT DETAIL MODAL
+// ============================================================
+let _modalProduct = null;
+
+function openProductModal(p) {
+  if (!p) return;
+  _modalProduct = p;
+  const catLabel = { flowers:'Cut Flowers', sourdough:'Artisan Sourdough', pottery:'Handmade Pottery' };
+  document.getElementById('prodModalImg').src          = p.img;
+  document.getElementById('prodModalImg').alt          = p.title;
+  document.getElementById('prodModalCat').textContent  = catLabel[p.cat] || p.cat;
+  document.getElementById('prodModalTitle').textContent = p.title;
+  document.getElementById('prodModalPrice').textContent = '$' + p.price;
+  const descEl = document.getElementById('prodModalDesc');
+  if (p.description) {
+    descEl.innerHTML   = p.description;
+    descEl.style.display = '';
+  } else {
+    descEl.innerHTML   = '';
+    descEl.style.display = 'none';
+  }
+  const btn    = document.getElementById('prodModalBtn');
+  const subBtn = document.getElementById('prodModalSubBtn');
+  const isSub  = (p.handle || '').toLowerCase().includes('subscription') || (p.title || '').toLowerCase().includes('subscription');
+  if (isSub) {
+    btn.style.display    = 'none';
+    subBtn.style.display = '';
+    subBtn.href          = 'https://gibson-ranch.myshopify.com/products/' + p.handle;
+  } else {
+    btn.style.display    = '';
+    subBtn.style.display = 'none';
+    btn.textContent      = p.available ? 'Add to Cart' : 'Sold Out';
+    btn.disabled         = !p.available;
+    btn.classList.remove('added');
+  }
+  document.getElementById('prodModalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProdModal(e) {
+  if (e && e.target !== document.getElementById('prodModalOverlay')) return;
+  document.getElementById('prodModalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  _modalProduct = null;
+}
+
+async function handleProdModalCart() {
+  if (!_modalProduct || !_modalProduct.available) return;
+  const p   = _modalProduct;
+  const btn = document.getElementById('prodModalBtn');
+  btn.textContent = 'Adding…';
+  btn.disabled    = true;
+  if (isDemoMode || !p.variantId) {
+    addToLocalCart({ id: p.id, title: p.title, price: p.price, img: p.img });
+  } else {
+    await addToShopifyCart(p.variantId, p.title, p.price, p.img);
+  }
+  btn.classList.add('added');
+  btn.textContent = '✓ Added to Cart';
+  setTimeout(() => {
+    document.getElementById('prodModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    _modalProduct = null;
+    openCart();
+  }, 900);
+}
+
+// ============================================================
+//  RESTORE CART from Shopify on page load
+// ============================================================
+async function restoreCart() {
+  if (!cartId || isDemoMode) return;
+  const data = await sfetch(`{ cart(id:"${cartId}") { ${CART_FRAGMENT} } }`);
+  const cart = data?.data?.cart;
+  if (cart) syncCartData(cart);
+  else { cartId = null; localStorage.removeItem('gr_cart_id'); }
+}
+
+// ============================================================
+//  NAV / MOBILE MENU / SCROLL
+// ============================================================
+const toggle = document.getElementById('mobileToggle');
+const menu   = document.getElementById('mobileMenu');
+toggle.addEventListener('click', () => {
+  toggle.classList.toggle('open');
+  menu.classList.toggle('open');
+  document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+});
+function closeMenu() { toggle.classList.remove('open'); menu.classList.remove('open'); document.body.style.overflow = ''; }
+
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Scroll-reveal
+const ro = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const sibs = e.target.parentElement.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale');
+      const idx  = Array.from(sibs).indexOf(e.target);
+      setTimeout(() => e.target.classList.add('visible'), idx * 100);
+      ro.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale').forEach(el => ro.observe(el));
+
+// Active nav link
+const sects = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  let c = '';
+  sects.forEach(s => { if (window.scrollY >= s.offsetTop - 120) c = s.getAttribute('id'); });
+  document.querySelectorAll('.nav-links a').forEach(a => { a.classList.toggle('active', a.getAttribute('href') === '#' + c); });
+});
+
+// ============================================================
+//  INIT
+// ============================================================
+loadProducts();
+restoreCart();
+</script>
+</body>
+</html>
